@@ -1,7 +1,0 @@
-#Wed Sep 28 21:30:45 EDT 2016
-base.0=/Users/llin/Documents/WorkSpace/Android/UdacityMakeYourAPPMaterial/XYZReader/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1e5961a7863df306e78539bf307a396bd4f974ae
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=/Users/llin/Documents/WorkSpace/Android/UdacityMakeYourAPPMaterial/XYZReader/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_94718bc869d07cafff4132639cfc667e40408af0/classes.dex
-base.1=/Users/llin/Documents/WorkSpace/Android/UdacityMakeYourAPPMaterial/XYZReader/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_94718bc869d07cafff4132639cfc667e40408af0
-file.0=/Users/llin/Documents/WorkSpace/Android/UdacityMakeYourAPPMaterial/XYZReader/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1e5961a7863df306e78539bf307a396bd4f974ae/classes.dex
