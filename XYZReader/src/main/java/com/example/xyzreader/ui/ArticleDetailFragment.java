@@ -7,12 +7,12 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,10 +40,8 @@ public class ArticleDetailFragment extends Fragment implements
     private long mItemId;
     private View mRootView;
     private int mMutedColor = 0xFF333333;
-    private ColorDrawable mStatusBarColorDrawable;
-    private int mTopInset;
     private ImageView mPhotoView;
-    private int mScrollY;
+    private Toolbar toolbar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -84,11 +82,17 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-
         collapsingToolbar =
                 (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsing_toolbar);
+        toolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-        mStatusBarColorDrawable = new ColorDrawable(0);
         mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +122,7 @@ public class ArticleDetailFragment extends Fragment implements
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
-            collapsingToolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            toolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
@@ -129,6 +133,10 @@ public class ArticleDetailFragment extends Fragment implements
                                 Palette p = Palette.generate(bitmap, 12);
                                 mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                if (collapsingToolbar != null) {
+                                    collapsingToolbar.setContentScrimColor(mMutedColor);
+                                    collapsingToolbar.setStatusBarScrimColor(mMutedColor);
+                                }
                             }
                         }
 
