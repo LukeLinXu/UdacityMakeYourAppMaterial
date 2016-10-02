@@ -116,13 +116,14 @@ public class ArticleDetailFragment extends Fragment implements
         }
 
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
+        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
-            toolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE)+"\n\nby "+mCursor.getString(ArticleLoader.Query.AUTHOR));
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
@@ -148,6 +149,7 @@ public class ArticleDetailFragment extends Fragment implements
         } else {
             mRootView.setVisibility(View.GONE);
             bodyView.setText("N/A");
+            titleView.setText("N/A");
         }
     }
 
